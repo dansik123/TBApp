@@ -20,5 +20,14 @@ namespace ZapTS.WebApi.Controllers
                 SessionId = Guid.NewGuid().ToString()
             };
         }
+
+        [HttpPost]
+        public ResgisterIdUserModel Register(RegisterViewModel model)
+        {
+            return new ResgisterIdUserModel()
+            {
+                IdUser=12
+            };
+        }
     }
 }
