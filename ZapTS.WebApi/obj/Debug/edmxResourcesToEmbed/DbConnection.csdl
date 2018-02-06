@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZapTBDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="IdentyficationTable">
+    <Key>
+      <PropertyRef Name="IdentyficationId" />
+    </Key>
+    <Property Name="IdentyficationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="SessionId" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="SessionTimeOut" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UserTable" Relationship="Self.FK_IdentyficationTable_UserTable" FromRole="IdentyficationTable" ToRole="UserTable" />
+  </EntityType>
+  <EntityType Name="UserTable">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="IdentyficationTable" Relationship="Self.FK_IdentyficationTable_UserTable" FromRole="UserTable" ToRole="IdentyficationTable" />
+  </EntityType>
+  <Association Name="FK_IdentyficationTable_UserTable">
+    <End Role="UserTable" Type="Self.UserTable" Multiplicity="0..1" />
+    <End Role="IdentyficationTable" Type="Self.IdentyficationTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTable">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="IdentyficationTable">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ZapTBDataEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="IdentyficationTable" EntityType="Self.IdentyficationTable" />
+    <EntitySet Name="UserTable" EntityType="Self.UserTable" />
+    <AssociationSet Name="FK_IdentyficationTable_UserTable" Association="Self.FK_IdentyficationTable_UserTable">
+      <End Role="UserTable" EntitySet="UserTable" />
+      <End Role="IdentyficationTable" EntitySet="IdentyficationTable" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

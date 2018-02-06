@@ -13,20 +13,35 @@ namespace ZapTS.WebApi.Controllers
     public class UserController : ApiController
     {
         [HttpPost]
-        public UserSessionViewModel Login(LoginViewModel model)
+        public LoginSesionIdReturn Login(UserTable model)
         {
-            return new UserSessionViewModel()
+            var context = new ZapTBDataEntities();
+            UserTable user = context.UserTable.First(r => r.Username == model.Username && r.Password == model.Password);
+            IdentyficationTable identyficationTable = new IdentyficationTable
             {
-                SessionId = Guid.NewGuid().ToString()
+                UserId = user.UserId,
+                SessionId = Guid.NewGuid().ToString(),
+                SessionTimeOut = DateTime.Now.AddMinutes(15)
+            };
+            context.IdentyficationTable.Add(identyficationTable);
+            context.SaveChanges();
+            return new LoginSesionIdReturn()
+            {
+                SessionId = identyficationTable.SessionId
             };
         }
 
         [HttpPost]
-        public ResgisterIdUserModel Register(RegisterViewModel model)
+        public RegisterUserIdReturn Register(UserTable model)
         {
-            return new ResgisterIdUserModel()
+            var context = new ZapTBDataEntities();
+            context.UserTable.Add(model);
+            context.SaveChanges();
+            UserTable userTable = context.UserTable.First(r => r.Username == model.Username && r.Password == model.Password);
+
+            return new RegisterUserIdReturn()
             {
-                IdUser=12
+                UserId = userTable.UserId
             };
         }
     }

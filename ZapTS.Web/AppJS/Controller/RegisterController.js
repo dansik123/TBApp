@@ -15,7 +15,7 @@
                 }
             })
                 .then(function (response) {
-                    alert('IdUser: ' + response.data.IdUser);
+                    alert('IdUser: ' + response.data.UserId);
                     console.log(response.data);
                 });
         };
