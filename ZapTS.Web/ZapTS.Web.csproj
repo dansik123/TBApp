@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -202,7 +203,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppJS\Controller\Profile.js" />
+    <Content Include="AppJS\Controller\Settings.js" />
     <Content Include="Views\Home\Home.html" />
+    <Content Include="Views\User\Profile.html" />
     <Content Include="Views\User\Register.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -1005,6 +1009,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\User\Settings.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

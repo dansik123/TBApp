@@ -17,7 +17,6 @@
             })
             .then(function (response) {
                 $rootScope.SessionId = response.data.SessionId;
-                alert('sessionId: ' + $rootScope.SessionId);
                 console.log(response.data);
             });
         };

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using ZapTS.WebApi.Models;
 using System.Web.Http.Cors;
+using ZapTS.WebApi.Annotations;
 
 namespace ZapTS.WebApi.Controllers
 {
@@ -43,6 +44,12 @@ namespace ZapTS.WebApi.Controllers
             {
                 UserId = userTable.UserId
             };
+        }
+
+        [Authorization]
+        public HttpResponseMessage GetImportantData()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, true);
         }
     }
 }
