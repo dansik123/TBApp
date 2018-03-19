@@ -7,6 +7,6 @@ namespace ZapTS.WebApi.Models
 {
     public class RegisterUserIdReturn
     {
-        public int UserId { get; set; }
+        public long UserId { get; set; }
     }
 }

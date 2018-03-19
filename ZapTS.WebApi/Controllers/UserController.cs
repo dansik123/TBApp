@@ -14,17 +14,17 @@ namespace ZapTS.WebApi.Controllers
     public class UserController : ApiController
     {
         [HttpPost]
-        public LoginSesionIdReturn Login(UserTable model)
+        public LoginSesionIdReturn Login(Users model)
         {
             var context = new ZapTBDataEntities();
-            UserTable user = context.UserTable.First(r => r.Username == model.Username && r.Password == model.Password);
-            IdentyficationTable identyficationTable = new IdentyficationTable
+            Users user = context.Users.First(r => r.Username == model.Username && r.Password == model.Password);
+            LogIn identyficationTable = new LogIn()
             {
-                UserId = user.UserId,
+                UserId = user.Id,
                 SessionId = Guid.NewGuid().ToString(),
                 SessionTimeOut = DateTime.Now.AddMinutes(15)
             };
-            context.IdentyficationTable.Add(identyficationTable);
+            context.LogIn.Add(identyficationTable);
             context.SaveChanges();
             return new LoginSesionIdReturn()
             {
@@ -33,16 +33,16 @@ namespace ZapTS.WebApi.Controllers
         }
 
         [HttpPost]
-        public RegisterUserIdReturn Register(UserTable model)
+        public RegisterUserIdReturn Register(Users model)
         {
             var context = new ZapTBDataEntities();
-            context.UserTable.Add(model);
+            context.Users.Add(model);
             context.SaveChanges();
-            UserTable userTable = context.UserTable.First(r => r.Username == model.Username && r.Password == model.Password);
+            Users userTable = context.Users.First(r => r.Username == model.Username && r.Password == model.Password);
 
             return new RegisterUserIdReturn()
             {
-                UserId = userTable.UserId
+                UserId = userTable.Id
             };
         }
 

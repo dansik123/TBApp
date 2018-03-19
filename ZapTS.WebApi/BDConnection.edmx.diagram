@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f20bc0600bc94fb2a20841fe91322a71" Name="Diagram1">
+        <EntityTypeShape EntityType="ZapTBDataModel.Action" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZapTBDataModel.LogIn" Width="1.5" PointX="6" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZapTBDataModel.LProjectAction" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZapTBDataModel.Project" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZapTBDataModel.UserActivity" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZapTBDataModel.Users" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="ZapTBDataModel.FK_LProjectAction_Action1" ManuallyRouted="false" />
+        <AssociationConnector Association="ZapTBDataModel.FK_UserActivity_Action1" ManuallyRouted="false" />
+        <AssociationConnector Association="ZapTBDataModel.FK_LogIn_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ZapTBDataModel.FK_LProjectAction_Project1" ManuallyRouted="false" />
+        <AssociationConnector Association="ZapTBDataModel.FK_UserActivity_Project1" ManuallyRouted="false" />
+        <AssociationConnector Association="ZapTBDataModel.FK_UserActivity_Users1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

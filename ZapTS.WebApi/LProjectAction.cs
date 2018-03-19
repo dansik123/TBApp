@@ -12,13 +12,13 @@ namespace ZapTS.WebApi
     using System;
     using System.Collections.Generic;
     
-    public partial class IdentyficationTable
+    public partial class LProjectAction
     {
-        public int IdentyficationId { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public string SessionId { get; set; }
-        public Nullable<System.DateTime> SessionTimeOut { get; set; }
+        public long Id { get; set; }
+        public Nullable<long> ProjectId { get; set; }
+        public Nullable<long> ActionId { get; set; }
     
-        public virtual UserTable UserTable { get; set; }
+        public virtual Action Action { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

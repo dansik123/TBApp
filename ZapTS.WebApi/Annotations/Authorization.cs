@@ -23,7 +23,7 @@ namespace ZapTS.WebApi.Annotations
 
                 using (var db = new ZapTBDataEntities())
                 {
-                    var session = db.IdentyficationTable.FirstOrDefault(q => q.SessionId == sessionId);
+                    var session = db.LogIn.FirstOrDefault(q => q.SessionId == sessionId);
 
                     if (session == null)
                     {

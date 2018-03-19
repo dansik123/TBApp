@@ -204,9 +204,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppJS\Controller\Profile.js" />
+    <Content Include="AppJS\Controller\ProjectsController.js" />
     <Content Include="AppJS\Controller\Settings.js" />
+    <Content Include="IMG\left_arrow.png" />
+    <Content Include="IMG\right_arrow.png" />
     <Content Include="Views\Home\Home.html" />
     <Content Include="Views\User\Profile.html" />
+    <Content Include="Views\User\Projects.html" />
     <Content Include="Views\User\Register.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

@@ -12,20 +12,23 @@ namespace ZapTS.WebApi
     using System;
     using System.Collections.Generic;
     
-    public partial class UserTable
+    public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserTable()
+        public Users()
         {
-            this.IdentyficationTable = new HashSet<IdentyficationTable>();
+            this.LogIn = new HashSet<LogIn>();
+            this.UserActivity = new HashSet<UserActivity>();
         }
     
-        public int UserId { get; set; }
+        public long Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IdentyficationTable> IdentyficationTable { get; set; }
+        public virtual ICollection<LogIn> LogIn { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserActivity> UserActivity { get; set; }
     }
 }

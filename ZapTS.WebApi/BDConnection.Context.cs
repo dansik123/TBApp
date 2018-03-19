@@ -25,7 +25,11 @@ namespace ZapTS.WebApi
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<IdentyficationTable> IdentyficationTable { get; set; }
-        public virtual DbSet<UserTable> UserTable { get; set; }
+        public virtual DbSet<Action> Action { get; set; }
+        public virtual DbSet<LogIn> LogIn { get; set; }
+        public virtual DbSet<LProjectAction> LProjectAction { get; set; }
+        public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<UserActivity> UserActivity { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

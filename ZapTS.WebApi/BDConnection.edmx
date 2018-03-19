@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ZapTBDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="LogIn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="SessionId" Type="nchar" MaxLength="200" />
+          <Property Name="SessionTimeOut" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LProjectAction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="bigint" />
+          <Property Name="ActionId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nchar" MaxLength="100" />
+          <Property Name="Name" Type="nchar" MaxLength="500" />
+          <Property Name="TotalHours" Type="int" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="StopDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="ProjectId" Type="bigint" />
+          <Property Name="ActionId" Type="bigint" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Hours" Type="int" />
+          <Property Name="Comment" Type="text" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nchar" MaxLength="500" />
+          <Property Name="Password" Type="nchar" MaxLength="500" />
+          <Property Name="Email" Type="nchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_LogIn_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="LogIn" Type="Self.LogIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogIn">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LProjectAction_Action1">
+          <End Role="Action" Type="Self.Action" Multiplicity="0..1" />
+          <End Role="LProjectAction" Type="Self.LProjectAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LProjectAction">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LProjectAction_Project1">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="LProjectAction" Type="Self.LProjectAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LProjectAction">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActivity_Action1">
+          <End Role="Action" Type="Self.Action" Multiplicity="0..1" />
+          <End Role="UserActivity" Type="Self.UserActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActivity">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActivity_Project1">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="UserActivity" Type="Self.UserActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActivity">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActivity_Users1">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserActivity" Type="Self.UserActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActivity">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZapTBDataModelStoreContainer">
+          <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogIn" EntityType="Self.LogIn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LProjectAction" EntityType="Self.LProjectAction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserActivity" EntityType="Self.UserActivity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LogIn_Users" Association="Self.FK_LogIn_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogIn" EntitySet="LogIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LProjectAction_Action1" Association="Self.FK_LProjectAction_Action1">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="LProjectAction" EntitySet="LProjectAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LProjectAction_Project1" Association="Self.FK_LProjectAction_Project1">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="LProjectAction" EntitySet="LProjectAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActivity_Action1" Association="Self.FK_UserActivity_Action1">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="UserActivity" EntitySet="UserActivity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActivity_Project1" Association="Self.FK_UserActivity_Project1">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="UserActivity" EntitySet="UserActivity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActivity_Users1" Association="Self.FK_UserActivity_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserActivity" EntitySet="UserActivity" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ZapTBDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="LProjectAction" Relationship="Self.FK_LProjectAction_Action1" FromRole="Action" ToRole="LProjectAction" />
+          <NavigationProperty Name="UserActivity" Relationship="Self.FK_UserActivity_Action1" FromRole="Action" ToRole="UserActivity" />
+        </EntityType>
+        <EntityType Name="LogIn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="SessionId" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Name="SessionTimeOut" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_LogIn_Users" FromRole="LogIn" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="LProjectAction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int64" />
+          <Property Name="ActionId" Type="Int64" />
+          <NavigationProperty Name="Action" Relationship="Self.FK_LProjectAction_Action1" FromRole="LProjectAction" ToRole="Action" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_LProjectAction_Project1" FromRole="LProjectAction" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="TotalHours" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="StopDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="LProjectAction" Relationship="Self.FK_LProjectAction_Project1" FromRole="Project" ToRole="LProjectAction" />
+          <NavigationProperty Name="UserActivity" Relationship="Self.FK_UserActivity_Project1" FromRole="Project" ToRole="UserActivity" />
+        </EntityType>
+        <EntityType Name="UserActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="ProjectId" Type="Int64" />
+          <Property Name="ActionId" Type="Int64" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Hours" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Action" Relationship="Self.FK_UserActivity_Action1" FromRole="UserActivity" ToRole="Action" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_UserActivity_Project1" FromRole="UserActivity" ToRole="Project" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_UserActivity_Users1" FromRole="UserActivity" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="LogIn" Relationship="Self.FK_LogIn_Users" FromRole="Users" ToRole="LogIn" />
+          <NavigationProperty Name="UserActivity" Relationship="Self.FK_UserActivity_Users1" FromRole="Users" ToRole="UserActivity" />
+        </EntityType>
+        <Association Name="FK_LProjectAction_Action1">
+          <End Role="Action" Type="Self.Action" Multiplicity="0..1" />
+          <End Role="LProjectAction" Type="Self.LProjectAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LProjectAction">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActivity_Action1">
+          <End Role="Action" Type="Self.Action" Multiplicity="0..1" />
+          <End Role="UserActivity" Type="Self.UserActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActivity">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogIn_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="LogIn" Type="Self.LogIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogIn">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LProjectAction_Project1">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="LProjectAction" Type="Self.LProjectAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LProjectAction">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActivity_Project1">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="UserActivity" Type="Self.UserActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActivity">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActivity_Users1">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserActivity" Type="Self.UserActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActivity">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZapTBDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Action" EntityType="Self.Action" />
+          <EntitySet Name="LogIn" EntityType="Self.LogIn" />
+          <EntitySet Name="LProjectAction" EntityType="Self.LProjectAction" />
+          <EntitySet Name="Project" EntityType="Self.Project" />
+          <EntitySet Name="UserActivity" EntityType="Self.UserActivity" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_LProjectAction_Action1" Association="Self.FK_LProjectAction_Action1">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="LProjectAction" EntitySet="LProjectAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActivity_Action1" Association="Self.FK_UserActivity_Action1">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="UserActivity" EntitySet="UserActivity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogIn_Users" Association="Self.FK_LogIn_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogIn" EntitySet="LogIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LProjectAction_Project1" Association="Self.FK_LProjectAction_Project1">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="LProjectAction" EntitySet="LProjectAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActivity_Project1" Association="Self.FK_UserActivity_Project1">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="UserActivity" EntitySet="UserActivity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActivity_Users1" Association="Self.FK_UserActivity_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserActivity" EntitySet="UserActivity" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ZapTBDataModelStoreContainer" CdmEntityContainer="ZapTBDataEntities">
+          <EntitySetMapping Name="Action">
+            <EntityTypeMapping TypeName="ZapTBDataModel.Action">
+              <MappingFragment StoreEntitySet="Action">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogIn">
+            <EntityTypeMapping TypeName="ZapTBDataModel.LogIn">
+              <MappingFragment StoreEntitySet="LogIn">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="SessionTimeOut" ColumnName="SessionTimeOut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LProjectAction">
+            <EntityTypeMapping TypeName="ZapTBDataModel.LProjectAction">
+              <MappingFragment StoreEntitySet="LProjectAction">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project">
+            <EntityTypeMapping TypeName="ZapTBDataModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TotalHours" ColumnName="TotalHours" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="StopDate" ColumnName="StopDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserActivity">
+            <EntityTypeMapping TypeName="ZapTBDataModel.UserActivity">
+              <MappingFragment StoreEntitySet="UserActivity">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ZapTBDataModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -12,6 +12,7 @@
             .when('/register', { templateUrl: '/Views/User/Register.html', controller: 'registerCtrl' })
             .when('/profile', { templateUrl: '/Views/User/Profile.html', controller: 'profileCtrl' })
             .when('/settings', { templateUrl: '/Views/User/Settings.html', controller: 'settingsCtrl' })
+            .when('/projects', { templateUrl: '/Views/User/Projects.html', controller: 'projectsCtrl' })
             .otherwise({ redirectTo: '/home' });
 
         $locationProvider.hashPrefix('!');
